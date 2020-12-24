@@ -6,13 +6,17 @@ using GoodGas.Views;
 
 namespace GoodGas
 {
+	/// <summary></summary>
 	public partial class App : Application
 	{
 		public App()
 		{
 			InitializeComponent();
 
+			// register the back-end service
 			DependencyService.Register<GasService>();
+
+			// create the main page
 			MainPage = new MainPage();
 		}
 

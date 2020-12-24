@@ -13,14 +13,16 @@ namespace GoodGas.Views
     /// <summary>List of items view page</summary>
     public partial class ItemsPage : ContentPage
     {
+        /// <summary>page view model</summary>
         private ItemsViewModel _viewModel;
 
+        /// <summary></summary>
         public ItemsPage()
         {
             InitializeComponent();
 
-            // set the bind context
-            BindingContext = _viewModel = new ItemsViewModel();
+            // set the bind context to a local var init with model
+            this.BindingContext = _viewModel = new ItemsViewModel();
         }
 
         async void OnItemSelected( object sender, EventArgs args )

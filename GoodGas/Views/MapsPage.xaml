@@ -4,6 +4,7 @@
 	<ContentPage.ToolbarItems>
 		<ToolbarItem Text="Add" />
 	</ContentPage.ToolbarItems>
+
 	<StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="DarkRed">
 		<maps:Map x:Name="myMap" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" MapType="Street" ItemsSource="{Binding Items}" HasScrollEnabled="True" HasZoomEnabled="True" >
 			<maps:Map.ItemTemplate>
@@ -15,4 +16,5 @@
             </maps:Map.ItemTemplate>
 		</maps:Map>
 	</StackLayout>
+
 </ContentPage>

@@ -14,8 +14,7 @@ using Xamarin.Essentials;
 
 namespace GoodGas.Views
 {
-	// Learn more about making custom code visible in the Xamarin.Forms previewer
-	// by visiting https://aka.ms/xamarinforms-previewer
+	/// <summary></summary>
 	[DesignTimeVisible( false )]
 	public partial class MapsPage : ContentPage
 	{
@@ -27,8 +26,11 @@ namespace GoodGas.Views
 
 			this.BindingContext = this._viewModel = new MapsViewModel();
 
-			Position position = new Position( 29.7504068, -95.4001804 );
+			// set the inital position over DT Houston
+			Position position = new Position( 29.7507, -95.362 );
 			MapSpan mapSpan = new MapSpan( position, 0.01, 0.01 );
+
+			// center the map
 			this.myMap.MoveToRegion( mapSpan );
 		}
 
@@ -36,6 +38,7 @@ namespace GoodGas.Views
 		{
 			base.OnAppearing();
 
+			// if there are no items - fetch
 			if ( this._viewModel.Items.Count == 0 )
 				this._viewModel.LoadItemsCommand.Execute( null );
 		}

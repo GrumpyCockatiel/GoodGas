@@ -4,8 +4,9 @@ using System.Threading.Tasks;
 
 namespace GoodGas.Services
 {
-	/// <summary></summary>
+	/// <summary>Interface that defines a Data Store</summary>
     /// <typeparam name="T"></typeparam>
+    /// <remarks>A project template class</remarks>
 	public interface IDataStore<T>
 	{
 		//Task<bool> AddItemAsync( T item );

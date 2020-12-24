@@ -12,7 +12,7 @@ namespace GoodGas.ViewModels
 	public class BaseViewModel : INotifyPropertyChanged
 	{
 		/// <summary>The data store itself</summary>
-		public IDataStore<GasStation> DataStore => DependencyService.Get<IDataStore<GasStation>>();
+		protected IDataStore<GasStation> DataStore => DependencyService.Get<IDataStore<GasStation>>();
 
 		private bool isBusy = false;
 
