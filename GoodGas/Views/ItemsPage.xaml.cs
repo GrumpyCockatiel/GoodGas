@@ -43,7 +43,7 @@ namespace GoodGas.Views
         {
             base.OnAppearing();
 
-            if ( this._viewModel.Items.Count == 0 )
+            if ( this._viewModel.Items.Count < 1 )
                 this._viewModel.LoadItemsCommand.Execute( null );
 
             //if ( this._viewModel.Items.Count == 0 )

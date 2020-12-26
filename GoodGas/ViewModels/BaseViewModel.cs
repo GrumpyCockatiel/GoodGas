@@ -11,12 +11,17 @@ namespace GoodGas.ViewModels
 	/// <summary>Base view model class</summary>
 	public class BaseViewModel : INotifyPropertyChanged
 	{
-        #region [ Fields ]
+		#region [ Fields ]
 
-        /// <summary>The data store itself</summary>
-        protected IDataStore<GasStation> DataStore => DependencyService.Get<IDataStore<GasStation>>();
+		/// <summary>The data store itself</summary>
+		/// <remarks>
+        /// Looks for a registered Type of IDataStore-GasStation which was reigstered in App.cs
+        /// Calls the constructor each time a new view is created.
+        /// </remarks>
+		//protected IDataStore<GasStation> DataStore => DependencyService.Get<IDataStore<GasStation>>();
+		protected IDataStore<GasStation> DataStore => DependencyService.Get<GasService>();
 
-        private bool isBusy = false;
+		private bool isBusy = false;
 
         private string title = string.Empty;
 

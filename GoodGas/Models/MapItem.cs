@@ -7,14 +7,14 @@ namespace GoodGas.Models
 	/// <summary>Map entity</summary>
 	public class MapItem : INotifyPropertyChanged
 	{
-		public MapItem( Position position, string address, string description = ""  )
+		private Position _position;
+
+		public MapItem( Position position, string address, string description = "" )
 		{
 			Address = address;
 			Description = description;
 			Position = position;
 		}
-
-		Position _position;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 

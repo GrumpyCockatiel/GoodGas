@@ -24,7 +24,7 @@ namespace GoodGas.ViewModels
 			{
 				GasService svc = new GasService();
 				//svc.GetAllStations( this.LoadStations );
-				Task<bool> t = svc.ListGasStations( this.LoadStations );
+				Task<bool> t = svc.ListGasStations( this.LoadModel );
 			} );
 
 			//MessagingCenter.Subscribe<NewItemPage, MapItem>( this, "AddItem", async ( obj, item ) =>
@@ -41,17 +41,19 @@ namespace GoodGas.ViewModels
 		/// <summary>Command to load data into the view model</summary>
 		public Command LoadItemsCommand { get; set; }
 
+		//public Action<ObservableCollection<MapItem>> OnUpdate { get; set; }
+
 		/// <summary>Callback when stations are loaded</summary>
-		public void LoadStations( ServiceResponse<List<GasStation>> results )
+		public void LoadModel( ServiceResponse<List<GasStation>> results )
         {
-			if ( IsBusy )
+			if ( this.IsBusy )
 				return;
 
-			IsBusy = true;
+			this.IsBusy = true;
 
 			try
 			{
-				Items.Clear();
+				this.Items.Clear();
 
 				foreach (GasStation s in results.Data.ResultObject )
                 {
@@ -59,7 +61,7 @@ namespace GoodGas.ViewModels
 					this.Items.Add( new MapItem( new Position( s.Latitude, s.Longitude ), s.Vendor ) );
 				}
 
-				// needs to recenter the map over the fist item returned
+				// we want to know after ALL the map items have changed not on each one
 			}
 			catch ( Exception ex )
 			{
@@ -67,7 +69,7 @@ namespace GoodGas.ViewModels
 			}
 			finally
 			{
-				IsBusy = false;
+				this.IsBusy = false;
 			}
         }
 	}
