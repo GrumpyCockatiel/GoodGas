@@ -24,6 +24,7 @@ namespace GoodGas.Views
 		{
 			InitializeComponent();
 
+			// set this binding context to a local reference
 			this.BindingContext = this._viewModel = new MapsViewModel();
 
 			// set the inital position over DT Houston

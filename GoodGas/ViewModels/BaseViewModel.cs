@@ -8,28 +8,35 @@ using GoodGas.Services;
 
 namespace GoodGas.ViewModels
 {
-	/// <summary></summary>
+	/// <summary>Base view model class</summary>
 	public class BaseViewModel : INotifyPropertyChanged
 	{
-		/// <summary>The data store itself</summary>
-		protected IDataStore<GasStation> DataStore => DependencyService.Get<IDataStore<GasStation>>();
+        #region [ Fields ]
 
-		private bool isBusy = false;
+        /// <summary>The data store itself</summary>
+        protected IDataStore<GasStation> DataStore => DependencyService.Get<IDataStore<GasStation>>();
 
-		private string title = string.Empty;
+        private bool isBusy = false;
 
-		public bool IsBusy
+        private string title = string.Empty;
+
+        #endregion [ Fields ]
+
+        /// <summary>Is the page busy - then show loading icon</summary>
+        public bool IsBusy
 		{
 			get { return isBusy; }
 			set { SetProperty( ref isBusy, value ); }
 		}
 
+		/// <summary>View title value</summary>
 		public string Title
 		{
 			get { return title; }
 			set { SetProperty( ref title, value ); }
 		}
 
+		/// <summary></summary>
 		protected bool SetProperty<T>( ref T backingStore, T value, [CallerMemberName]string propertyName = "", Action onChanged = null )
 		{
 			if ( EqualityComparer<T>.Default.Equals( backingStore, value ) )
@@ -43,8 +50,10 @@ namespace GoodGas.ViewModels
 
 		#region INotifyPropertyChanged
 
+		/// <summary></summary>
 		public event PropertyChangedEventHandler PropertyChanged;
 
+		/// <summary></summary>
 		protected void OnPropertyChanged( [CallerMemberName] string propertyName = "" )
 		{
 			var changed = PropertyChanged;

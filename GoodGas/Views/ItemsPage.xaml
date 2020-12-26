@@ -9,7 +9,8 @@
     </ContentPage.ToolbarItems>
 
     <!-- LoadItemsCommand will be called when this view appears -->
-    <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Command="{Binding LoadItemsCommand}">
+
+        <!-- Removing the RefreshView parent for now -->
         <CollectionView x:Name="ItemsCollectionView" ItemsSource="{Binding Items}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -30,5 +31,5 @@
             </CollectionView.ItemTemplate>
 
         </CollectionView>
-    </RefreshView> 
+
 </ContentPage>

@@ -44,7 +44,10 @@ namespace GoodGas.Views
             base.OnAppearing();
 
             if ( this._viewModel.Items.Count == 0 )
-                this._viewModel.IsBusy = true;
+                this._viewModel.LoadItemsCommand.Execute( null );
+
+            //if ( this._viewModel.Items.Count == 0 )
+            //this._viewModel.IsBusy = true;
         }
     }
 }
