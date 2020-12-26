@@ -10,6 +10,9 @@ using System.Collections.Generic;
 
 namespace GoodGas.ViewModels
 {
+	/// <summary></summary>
+	public delegate void ItemsUpdated(Object sender);
+
 	/// <summary>View model for the Maps View</summary>
 	public class MapsViewModel : BaseViewModel
 	{
@@ -20,10 +23,10 @@ namespace GoodGas.ViewModels
 
 			this.Items = new ObservableCollection<MapItem>();
 
+			// set a handler for load items
 			this.LoadItemsCommand = new Command( () =>
 			{
 				GasService svc = new GasService();
-				//svc.GetAllStations( this.LoadStations );
 				Task<bool> t = svc.ListGasStations( this.LoadModel );
 			} );
 
@@ -41,7 +44,21 @@ namespace GoodGas.ViewModels
 		/// <summary>Command to load data into the view model</summary>
 		public Command LoadItemsCommand { get; set; }
 
-		//public Action<ObservableCollection<MapItem>> OnUpdate { get; set; }
+		#region [ Events ]
+
+		/// <summary>Event when account info is updated</summary>
+		public event ItemsUpdated ItemsUpdated;
+
+		#endregion [ Events ]
+
+		/// <summary>Call the update event</summary>
+		public void OnItemsUpdated()
+		{
+			if ( this.ItemsUpdated == null )
+				return;
+
+			this.ItemsUpdated(this);
+		}
 
 		/// <summary>Callback when stations are loaded</summary>
 		public void LoadModel( ServiceResponse<List<GasStation>> results )
@@ -62,6 +79,7 @@ namespace GoodGas.ViewModels
 				}
 
 				// we want to know after ALL the map items have changed not on each one
+				this.OnItemsUpdated();
 			}
 			catch ( Exception ex )
 			{
