@@ -8,8 +8,8 @@
 			 Title="{Binding Title}">
 	<StackLayout Spacing="20" Padding="15">
 		<Label Text="Text:" FontSize="Medium" />
-		<Label Text="{Binding Item.Text}" d:Text="Item name" FontSize="Small" />
+		<Label Text="{Binding Item.Vendor}" d:Text="Item name" FontSize="Small" />
 		<Label Text="Description:" FontSize="Medium" />
-		<Label Text="{Binding Item.Description}" d:Text="Item description" FontSize="Small" />
+		<Label Text="{Binding Item.Address}" d:Text="Item description" FontSize="Small" />
 	</StackLayout>
 </ContentPage>

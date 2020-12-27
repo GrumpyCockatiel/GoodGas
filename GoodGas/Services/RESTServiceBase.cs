@@ -15,19 +15,26 @@ namespace GoodGas.Services
     /// <summary>Services a base class for a REST Service</summary>
     public class RESTServiceBase
     {
-        #region [ Fields ]
+        #region [ Constructors ]
 
         /// <summary></summary>
         /// <param name="env"></param>
-        public RESTServiceBase( string baseURL )
+        public RESTServiceBase( string baseURL ) : this(baseURL, null)
+        {
+        }
+
+        /// <summary></summary>
+        /// <param name="env"></param>
+        public RESTServiceBase( string baseURL, string apiKey )
         {
             this.APIBaseURL = baseURL;
+            this.APIKey = apiKey;
 
             // create a new client
             this.Client = new HttpClient();
         }
 
-        #endregion [ Fields ]
+        #endregion [ Constructors ]
 
         #region [ Properties ]
 

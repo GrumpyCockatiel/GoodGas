@@ -13,22 +13,14 @@ namespace GoodGas.Services
     {
         #region [ Fields ]
 
-        /// <summary>The API base address</summary>
-        public static string APIBaseURL = "https://goodgas-dev-v1-api.azurewebsites.net/api";
-
-        /// <summary>This key can only be used to List the Gas Stations</summary>
-        public static string FunctionKey = "0DW8yzcddAJPydMUWMd1TMmOSSSmzppK6xcWj26bqeRWrh0D1IgSwQ==";
-
         #endregion [ Fields ]
 
         #region [ Constructor ]
 
         /// <summary>Constructor</summary>
         /// <param name="env"></param>
-        public GasService() : base( APIBaseURL )
+        public GasService(string url, string key) : base( url, key )
         {
-            // TODO - need to change this
-            base.APIKey = FunctionKey;
         }
 
         #endregion [ Constructor ]

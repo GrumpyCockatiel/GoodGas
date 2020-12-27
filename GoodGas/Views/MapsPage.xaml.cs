@@ -5,18 +5,14 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using GoodGas.ViewModels;
-using System.Collections.Specialized;
-using System.Collections.ObjectModel;
-using GoodGas.Models;
 
 namespace GoodGas.Views
 {
-	/// <summary></summary>
+	/// <summary>View Page displaying the map of items</summary>
 	[DesignTimeVisible( false )]
 	public partial class MapsPage : ContentPage
 	{
 		/// <summary>Direct reference to the view model</summary>
-
 		private MapsViewModel _viewModel;
 
 		public MapsPage()
@@ -34,46 +30,57 @@ namespace GoodGas.Views
 
 		}
 
-		/// <summary>View model lets us know the maps items have been completely updated</summary>
-		private void DoMapItemsChanged(Object sender)
-		{
-			if ( this._viewModel != null && this._viewModel.Items != null && this._viewModel.Items.Count > 0 )
-			{
-				int idx = this._viewModel.Items.Count - 1;
-				this.Center = new MapSpan( this._viewModel.Items[idx].Position, 0.01, 0.01 );
-			}
-		}
+        #region [ Properties ]
 
-		/// <summary>This will update on each item added</summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		//private void DoItemsChanged( object sender, NotifyCollectionChangedEventArgs e )
-		//      {
-		//	ObservableCollection<MapItem> items = sender as ObservableCollection<MapItem>;
+                /// <summary>Centers the map view</summary>
+        protected MapSpan Center
+        {
+            set
+            {
+                this.gasMap.MoveToRegion( value );
+            }
+        }
 
-		//	if ( items != null && items.Count > 0 )
-		//          {
-		//		this.Center = new MapSpan( items[0].Position, 0.01, 0.01 );
-		//	}
-		//      }
+        #endregion [ Properties ]
 
-		/// <summary></summary>
-		protected override void OnAppearing()
-		{
-			base.OnAppearing();
 
-			// if there are no items - fetch
-			if ( this._viewModel.Items.Count < 1 )
-				this._viewModel.LoadItemsCommand.Execute( null );
-		}
+        #region [ Methods ]
 
-		/// <summary>Centers the map view</summary>
-		protected MapSpan Center
-		{
-			set
-			{
-				this.gasMap.MoveToRegion( value );
-			}
-		}
-	}
+        /// <summary>View model lets us know the maps items have been completely updated</summary>
+        private void DoMapItemsChanged( Object sender )
+        {
+            if ( this._viewModel != null && this._viewModel.Items != null && this._viewModel.Items.Count > 0 )
+            {
+                int idx = this._viewModel.Items.Count - 1;
+                this.Center = new MapSpan( this._viewModel.Items[idx].Position, 0.01, 0.01 );
+            }
+        }
+
+        /// <summary>This will update on each item added</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //private void DoItemsChanged( object sender, NotifyCollectionChangedEventArgs e )
+        //      {
+        //	ObservableCollection<MapItem> items = sender as ObservableCollection<MapItem>;
+
+        //	if ( items != null && items.Count > 0 )
+        //          {
+        //		this.Center = new MapSpan( items[0].Position, 0.01, 0.01 );
+        //	}
+        //      }
+
+        /// <summary>When the view appears</summary>
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // if there are no items - fetch
+            if ( this._viewModel.Items.Count < 1 )
+                this._viewModel.LoadItemsCommand.Execute( null );
+        }
+
+        #endregion [ Methods ]
+
+
+    }
 }

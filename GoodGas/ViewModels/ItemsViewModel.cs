@@ -20,12 +20,10 @@ namespace GoodGas.ViewModels
 
             this.LoadItemsCommand = new Command( () =>
             {
-
+                // refresh the data
                 //async () => await ExecuteLoadItemsCommand()
-
                 Task<bool> t = this.DataStore.ListGasStations( this.LoadModel );
-            }
-            );
+            });
 
             //MessagingCenter.Subscribe<NewItemPage, Item>( this, "AddItem", async ( obj, item ) =>
             // {

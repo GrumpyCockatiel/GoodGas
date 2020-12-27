@@ -21,24 +21,24 @@ namespace GoodGas.ViewModels
 		//protected IDataStore<GasStation> DataStore => DependencyService.Get<IDataStore<GasStation>>();
 		protected IDataStore<GasStation> DataStore => DependencyService.Get<GasService>();
 
-		private bool isBusy = false;
+		private bool _isBusy = false;
 
-        private string title = string.Empty;
+        private string _title = string.Empty;
 
         #endregion [ Fields ]
 
         /// <summary>Is the page busy - then show loading icon</summary>
         public bool IsBusy
 		{
-			get { return isBusy; }
-			set { SetProperty( ref isBusy, value ); }
+			get { return _isBusy; }
+			set { SetProperty( ref _isBusy, value ); }
 		}
 
 		/// <summary>View title value</summary>
 		public string Title
 		{
-			get { return title; }
-			set { SetProperty( ref title, value ); }
+			get { return _title; }
+			set { SetProperty( ref _title, value ); }
 		}
 
 		/// <summary></summary>
