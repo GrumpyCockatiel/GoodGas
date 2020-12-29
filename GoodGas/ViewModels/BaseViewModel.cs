@@ -59,6 +59,7 @@ namespace GoodGas.ViewModels
 		protected void OnPropertyChanged( [CallerMemberName] string propertyName = "" )
 		{
 			var changed = PropertyChanged;
+
 			if ( changed == null )
 				return;
 

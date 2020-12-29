@@ -22,12 +22,7 @@ namespace GoodGas.Services
 
         /// <summary></summary>
         /// <returns></returns>
-        //public Task<bool> ListGasStations( APICallback<List<GasStation>> callback )
-        //{
-        //    return Task.FromResult( true );
-        //}
-
-        public async Task<IEnumerable<GasStation>> ListGasStations2()
+        public async Task<IEnumerable<GasStation>> ListGasStations()
         {
             return await Task.FromResult( items );
         }

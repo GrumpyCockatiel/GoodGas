@@ -35,7 +35,7 @@ namespace GoodGas.ViewModels
 			{
                 // refresh the data
                 //Task<bool> t = this.DataStore.ListGasStations( this.LoadModel );
-                Task<IEnumerable<GasStation>> t = this.DataStore.ListGasStations2();
+                Task<IEnumerable<GasStation>> t = this.DataStore.ListGasStations();
                 t.ContinueWith( ant => { LoadModel( ant.Result.ToList() ); } );
             } );
 
@@ -46,9 +46,6 @@ namespace GoodGas.ViewModels
 			//	 await DataStore.AddItemAsync( newItem );
 			// } );
 		}
-
-		/// <summary>A observable collection of map items specific to this view</summary>
-		//public List<MapItem> Items { get; set; }
 
         /// <summary>Data Source </summary>
         public List<MapItem> Items
@@ -62,7 +59,7 @@ namespace GoodGas.ViewModels
 
 		#region [ Events ]
 
-		/// <summary>Event when account info is updated</summary>
+		/// <summary>Event when</summary>
 		public event ItemsUpdated ItemsUpdated;
 
         #endregion [ Events ]

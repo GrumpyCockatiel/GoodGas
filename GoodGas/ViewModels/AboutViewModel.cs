@@ -4,6 +4,7 @@ using Xamarin.Forms;
 
 namespace GoodGas.ViewModels
 {
+	/// <summary></summary>
 	public class AboutViewModel : BaseViewModel
 	{
 		public AboutViewModel()

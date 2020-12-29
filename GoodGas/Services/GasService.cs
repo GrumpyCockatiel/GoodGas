@@ -42,7 +42,7 @@ namespace GoodGas.Services
 
         /// <summary>Calls the List Gas Stations API endpoint</summary>
         /// <returns></returns>
-        public async Task<IEnumerable<GasStation>> ListGasStations2()
+        public async Task<IEnumerable<GasStation>> ListGasStations()
         {
             // define the request
             HttpRequestMessage message = this.GetRequest( "ListGasStations", false, false );
@@ -83,32 +83,6 @@ namespace GoodGas.Services
         //}
 
         #endregion [ IDataStore ]
-
-        #region [ API Methods ]
-
-        /// <summary>Get the gas stations list as an async call</summary>
-        /// <returns></returns>
-        //public Task ListGasStations(APICallback<List<GasStation>> callback)
-        //{
-        //    HttpRequestMessage message = this.GetRequest( "ListGasStations", false, false);
-
-        //    ServiceResponse<List<GasStation>> resp = new ServiceResponse<List<GasStation>>();
-
-        //    Task<HttpResponseMessage> task1 = this.Client.SendAsync( message );
-
-        //    Task task2 = task1.ContinueWith( ( ant ) => {
-        //        resp.StatusCode = ant.Result.StatusCode;
-        //        string body = ant.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-        //        resp.Data = JsonConvert.DeserializeObject<APIResult<List<GasStation>>>( body );
-        //        callback(resp);
-        //    } );
-
-        //    return task1;
-        //}
-
-
-
-        #endregion [ API Methods ]
 
     }
 }

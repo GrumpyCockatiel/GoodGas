@@ -22,12 +22,6 @@ namespace GoodGas.Views
 			// set this binding context to a new MapViewsModel
 			this.BindingContext = this._viewModel = new MapsViewModel();
 
-			// set the inital position over DT Houston
-			//this.Center = new MapSpan( new Position( 29.7507, -95.362 ), 0.01, 0.01 );
-
-			// watch the model list for done changes
-			//this._viewModel.ItemsUpdated += DoMapItemsChanged;
-
             this.gasMap.PropertyChanged += DoMapPropertyChanged;
 
             this.gasMap.MoveToRegion( new MapSpan( new Position( 29.7507, -95.362 ), 0.01, 0.01 ) );
@@ -51,29 +45,6 @@ namespace GoodGas.Views
                 this.gasMap.MoveToRegion( new MapSpan( this._viewModel.Items[idx].Position, 0.01, 0.01 ) );
             }
         }
-
-        /// <summary>View model lets us know the maps items have been completely updated</summary>
-        //protected void DoMapItemsChanged( Object sender )
-        //{
-        //    if ( this._viewModel != null && this._viewModel.Items != null && this._viewModel.Items.Count > 0 )
-        //    {
-        //        int idx = this._viewModel.Items.Count - 1;
-        //        //this.Center = new MapSpan( this._viewModel.Items[idx].Position, 0.01, 0.01 );
-        //    }
-        //}
-
-        /// <summary>This will update on each item added</summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void DoItemsChanged( object sender, NotifyCollectionChangedEventArgs e )
-        //      {
-        //	ObservableCollection<MapItem> items = sender as ObservableCollection<MapItem>;
-
-        //	if ( items != null && items.Count > 0 )
-        //          {
-        //		this.Center = new MapSpan( items[0].Position, 0.01, 0.01 );
-        //	}
-        //      }
 
         /// <summary>When the view appears</summary>
         protected override void OnAppearing()

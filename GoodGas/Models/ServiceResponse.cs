@@ -5,6 +5,7 @@ namespace GoodGas.Models
 {
     /// <summary>Wraps a response back from the service</summary>
     /// <typeparam name="T">The data type sent back from the service</typeparam>
+    /// <remarks>Unused right now</remarks>
     public class ServiceResponse<T>
     {
         public ServiceResponse()
