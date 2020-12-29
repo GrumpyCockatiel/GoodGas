@@ -70,55 +70,44 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon1024.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon180.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon167.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon152.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon120.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon87.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon80.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon76.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon60.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon58.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon40.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon29.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <BundleResource Include="Resources\tab_about.png" />
-    <BundleResource Include="Resources\tab_about%402x.png" />
-    <BundleResource Include="Resources\tab_about%403x.png" />
-    <BundleResource Include="Resources\tab_feed.png" />
-    <BundleResource Include="Resources\tab_feed%402x.png" />
-    <BundleResource Include="Resources\tab_feed%403x.png" />
     <BundleResource Include="Resources\xamarin_logo.png" />
     <BundleResource Include="Resources\xamarin_logo%402x.png" />
     <BundleResource Include="Resources\xamarin_logo%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <ImageAsset Include="Assets.xcassets\LogTabIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AboutTabIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\FeedTabIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\LogTabIcon.imageset\LogIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\LogTabIcon.imageset\LogIcon.png" />
+    <ImageAsset Include="Assets.xcassets\LogTabIcon.imageset\LogIcon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\FeedTabIcon.imageset\FeedIcon.png" />
+    <ImageAsset Include="Assets.xcassets\FeedTabIcon.imageset\FeedIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\FeedTabIcon.imageset\FeedIcon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\MapTabIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\MapTabIcon.imageset\MapIcon.png" />
+    <ImageAsset Include="Assets.xcassets\MapTabIcon.imageset\MapIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\MapTabIcon.imageset\MapIcon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\AboutTabIcon.imageset\AboutIcon.png" />
+    <ImageAsset Include="Assets.xcassets\AboutTabIcon.imageset\AboutIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AboutTabIcon.imageset\AboutIcon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon1024.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon76.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon152.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon40.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon80.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon29.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon58.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon58-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon87.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon120.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon180.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon40-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon60.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon80-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon120-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon167.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon20.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon40-2.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -138,5 +127,11 @@
       <Project>{23CA5C7A-0039-48FD-860E-5DBF6B751DFD}</Project>
       <Name>GoodGas</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets.xcassets\LogTabIcon.imageset\" />
+    <Folder Include="Assets.xcassets\AboutTabIcon.imageset\" />
+    <Folder Include="Assets.xcassets\FeedTabIcon.imageset\" />
+    <Folder Include="Assets.xcassets\MapTabIcon.imageset\" />
   </ItemGroup>
 </Project>

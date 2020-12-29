@@ -38,7 +38,7 @@ namespace GoodGas.ViewModels
 			set { SetProperty( ref _title, value ); }
 		}
 
-		/// <summary></summary>
+		/// <summary>Setting a property causes it to invoke a change event</summary>
 		protected bool SetProperty<T>( ref T backingStore, T value, [CallerMemberName]string propertyName = "", Action onChanged = null )
 		{
 			if ( EqualityComparer<T>.Default.Equals( backingStore, value ) )
@@ -55,7 +55,7 @@ namespace GoodGas.ViewModels
 		/// <summary></summary>
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		/// <summary></summary>
+		/// <summary>Any property invokes a change event</summary>
 		protected void OnPropertyChanged( [CallerMemberName] string propertyName = "" )
 		{
 			var changed = PropertyChanged;

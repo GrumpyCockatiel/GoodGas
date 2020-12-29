@@ -4,13 +4,13 @@ using Xamarin.Forms.Maps;
 
 namespace GoodGas.Models
 {
-	/// <summary>Map entity</summary>
+	/// <summary>A Map entity</summary>
 	public class MapItem : INotifyPropertyChanged
 	{
 		/// <summary></summary>
 		private Position _position;
 
-		/// <summary></summary>
+		/// <summary>Constructor</summary>
 		public MapItem( Position position, string address, string description = "" )
 		{
 			Address = address;
@@ -18,8 +18,12 @@ namespace GoodGas.Models
 			Position = position;
 		}
 
-		/// <summary></summary>
+		#region [ INotifyPropertyChanged ]
+
+		/// <summary>Things listening to see when this object has a change to a property</summary>
 		public event PropertyChangedEventHandler PropertyChanged;
+
+		#endregion [ INotifyPropertyChanged ]
 
 		/// <summary></summary>
 		public string Address { get; }
@@ -27,15 +31,19 @@ namespace GoodGas.Models
 		/// <summary></summary>
 		public string Description { get; }
 
-		/// <summary></summary>
+		/// <summary>Lat/long geo position</summary>
+		/// <remarks>Only position invokes a change</remarks>
 		public Position Position
 		{
-			get => _position;
+			get => this._position;
 			set
 			{
-				if ( !_position.Equals( value ) )
+				// did the actual position change
+				if ( !this._position.Equals( value ) )
 				{
-					_position = value;
+					this._position = value;
+
+					// if property changed is not null, then call the event
 					PropertyChanged?.Invoke( this, new PropertyChangedEventArgs( nameof( Position ) ) );
 				}
 			}

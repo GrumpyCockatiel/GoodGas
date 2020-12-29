@@ -1,35 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" xmlns:views="clr-namespace:GoodGas.Views" x:Class="GoodGas.Views.MainPage">
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+			xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			mc:Ignorable="d" xmlns:views="clr-namespace:GoodGas.Views"
+			x:Class="GoodGas.Views.MainPage">
+
+	<!-- Start the Tabs -->
 	<TabbedPage.Children>
+
+		<!-- List View Page -->
 		<NavigationPage Title="Browse">
 			<x:Arguments>
 				<views:ItemsPage />
 			</x:Arguments>
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="iOS" Value="tab_feed.png"/>
+                    <On Platform="iOS" Value="FeedTabIcon" />
+					<On Platform="Android" Value="FeedTabIcon" />
                 </OnPlatform>
             </NavigationPage.Icon>
         </NavigationPage>
+
+		<!-- Map View Page -->
 		<NavigationPage Title="Map">
 			<x:Arguments>
 				<views:MapsPage />
 			</x:Arguments>
 			<NavigationPage.Icon>
 				<OnPlatform x:TypeArguments="FileImageSource">
-					<On Platform="iOS" Value="tab_feed.png" />
+					<On Platform="iOS" Value="MapTabIcon" />
+					<On Platform="Android" Value="MapTabIcon" />
 				</OnPlatform>
 			</NavigationPage.Icon>
 		</NavigationPage>
+
+		<!-- About Page -->
 		<NavigationPage Title="About">
 			<x:Arguments>
 				<views:AboutPage />
 			</x:Arguments>
 			<NavigationPage.Icon>
 				<OnPlatform x:TypeArguments="FileImageSource">
-					<On Platform="iOS" Value="tab_about.png" />
+					<On Platform="iOS" Value="AboutTabIcon" />
+					<On Platform="Android" Value="AboutTabIcon" />
 				</OnPlatform>
 			</NavigationPage.Icon>
 		</NavigationPage>
+
+		<!-- Logs View-->
+
 	</TabbedPage.Children>
+
 </TabbedPage>
