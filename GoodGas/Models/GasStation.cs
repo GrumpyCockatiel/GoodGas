@@ -4,6 +4,15 @@ using Newtonsoft.Json;
 
 namespace GoodGas.Models
 {
+	/// <summary>A generic litems item for demo purposes.</summary>
+	/// <remarks>We could subclass the Item so it works with other business objects</remarks>
+	public class Item
+	{
+		public string Id { get; set; }
+		public string Text { get; set; }
+		public string Description { get; set; }
+	}
+
 	/// <summary>Gas Station Entity</summary>
 	public class GasStation
 	{

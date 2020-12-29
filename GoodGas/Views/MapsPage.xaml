@@ -12,7 +12,8 @@
 	</ContentPage.ToolbarItems>
 
 	<StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="DarkRed">
-		<maps:Map x:Name="gasMap" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" MapType="Street" ItemsSource="{Binding Items}" HasScrollEnabled="True" HasZoomEnabled="True"  >
+
+		<maps:Map x:Name="gasMap" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" MapType="Street" ItemsSource="{Binding Items}" HasScrollEnabled="True" HasZoomEnabled="True"   >
 			<maps:Map.ItemTemplate>
                 <DataTemplate>
                     <maps:Pin Position="{Binding Position}"
@@ -21,6 +22,7 @@
                 </DataTemplate>    
             </maps:Map.ItemTemplate>
 		</maps:Map>
+
 	</StackLayout>
 
 </ContentPage>

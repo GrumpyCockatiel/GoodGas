@@ -6,64 +6,31 @@ using GoodGas.Models;
 
 namespace GoodGas.Services
 {
-	/// <summary>A generic item for demo purposes.</summary>
-    /// <remarks>You can subclass the Item so it works with other business objects</remarks>
-	public class Item
-	{
-		public string Id { get; set; }
-		public string Text { get; set; }
-		public string Description { get; set; }
-	}
+    /// <summary>A local mock store</summary>
+    public class MockDataStore : IDataStore<GasStation>
+    {
+        readonly List<GasStation> items;
 
-    //public class MockDataStore : IDataStore<Item>
-    //{
-    //    readonly List<Item> items;
+        public MockDataStore()
+        {
+            items = new List<GasStation>()
+            {
+                new GasStation { ID = "1", Vendor = "Valero", Address = "926 Westheimer Rd", City="Houston",State="TX", Zip="77006", Latitude=29.7408427, Longitude=-95.3975131 },
+                new GasStation { ID = "2", Vendor = "Chevron", Address = "2602 Richmond Ave", City="Houston", State="TX", Zip="77098", Latitude = 29.7350346, Longitude = -95.4190183 },
+            };
+        }
 
-    //    public MockDataStore()
-    //    {
-    //        items = new List<Item>()
-    //        {
-    //            new Item { Id = Guid.NewGuid().ToString(), Text = "First item", Description="This is an item description." },
-    //            new Item { Id = Guid.NewGuid().ToString(), Text = "Second item", Description="This is an item description." },
-    //            new Item { Id = Guid.NewGuid().ToString(), Text = "Third item", Description="This is an item description." },
-    //            new Item { Id = Guid.NewGuid().ToString(), Text = "Fourth item", Description="This is an item description." },
-    //            new Item { Id = Guid.NewGuid().ToString(), Text = "Fifth item", Description="This is an item description." },
-    //            new Item { Id = Guid.NewGuid().ToString(), Text = "Sixth item", Description="This is an item description." }
-    //        };
-    //    }
+        /// <summary></summary>
+        /// <returns></returns>
+        //public Task<bool> ListGasStations( APICallback<List<GasStation>> callback )
+        //{
+        //    return Task.FromResult( true );
+        //}
 
-    //    public async Task<bool> AddItemAsync( Item item )
-    //    {
-    //        items.Add( item );
+        public async Task<IEnumerable<GasStation>> ListGasStations2()
+        {
+            return await Task.FromResult( items );
+        }
+    }
 
-    //        return await Task.FromResult( true );
-    //    }
-
-    //    public async Task<bool> UpdateItemAsync( Item item )
-    //    {
-    //        var oldItem = items.Where( ( Item arg ) => arg.Id == item.Id ).FirstOrDefault();
-    //        items.Remove( oldItem );
-    //        items.Add( item );
-
-    //        return await Task.FromResult( true );
-    //    }
-
-    //    public async Task<bool> DeleteItemAsync( string id )
-    //    {
-    //        var oldItem = items.Where( ( Item arg ) => arg.Id == id ).FirstOrDefault();
-    //        items.Remove( oldItem );
-
-    //        return await Task.FromResult( true );
-    //    }
-
-    //    public async Task<Item> GetItemAsync( string id )
-    //    {
-    //        return await Task.FromResult( items.FirstOrDefault( s => s.Id == id ) );
-    //    }
-
-    //    public async Task<IEnumerable<Item>> GetItemsAsync( bool forceRefresh = false )
-    //    {
-    //        return await Task.FromResult( items );
-    //    }
-    //}
 }

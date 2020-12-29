@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 using GoodGas.Models;
-using Xamarin.Forms.Maps;
 using GoodGas.Services;
-using System.Collections.Generic;
+using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 
 namespace GoodGas.ViewModels
 {
@@ -16,19 +17,27 @@ namespace GoodGas.ViewModels
 	/// <summary>View model for the Maps View</summary>
 	public class MapsViewModel : BaseViewModel
 	{
-		/// <summary>Constructor</summary>
-		public MapsViewModel()
+        #region [ Fields ]
+
+        private List<MapItem> _items;
+
+        #endregion [ Fields ]
+
+        /// <summary>Constructor</summary>
+        public MapsViewModel()
 		{
 			this.Title = "Map";
 
-			this.Items = new ObservableCollection<MapItem>();
+			this.Items = new List<MapItem>();
 
 			// set a handler for load items
 			this.LoadItemsCommand = new Command( () =>
 			{
                 // refresh the data
-                Task<bool> t = this.DataStore.ListGasStations( this.LoadModel );
-			} );
+                //Task<bool> t = this.DataStore.ListGasStations( this.LoadModel );
+                Task<IEnumerable<GasStation>> t = this.DataStore.ListGasStations2();
+                t.ContinueWith( ant => { LoadModel( ant.Result.ToList() ); } );
+            } );
 
 			//MessagingCenter.Subscribe<NewItemPage, MapItem>( this, "AddItem", async ( obj, item ) =>
 			// {
@@ -39,10 +48,17 @@ namespace GoodGas.ViewModels
 		}
 
 		/// <summary>A observable collection of map items specific to this view</summary>
-		public ObservableCollection<MapItem> Items { get; set; }
+		//public List<MapItem> Items { get; set; }
 
-		/// <summary>Command to load data into the view model</summary>
-		public Command LoadItemsCommand { get; set; }
+        /// <summary>Data Source </summary>
+        public List<MapItem> Items
+        {
+            get { return _items; }
+            set { SetProperty( ref _items, value ); }
+        }
+
+        /// <summary>Command to load data into the view model</summary>
+        public Command LoadItemsCommand { get; set; }
 
 		#region [ Events ]
 
@@ -63,7 +79,7 @@ namespace GoodGas.ViewModels
         }
 
         /// <summary>Callback when stations are loaded</summary>
-        public void LoadModel( ServiceResponse<List<GasStation>> results )
+        public void LoadModel( List<GasStation> results )
         {
             if ( this.IsBusy )
                 return;
@@ -72,13 +88,8 @@ namespace GoodGas.ViewModels
 
             try
             {
-                this.Items.Clear();
-
-                foreach ( GasStation s in results.Data.ResultObject )
-                {
-                    // add a new map item
-                    this.Items.Add( new MapItem( new Position( s.Latitude, s.Longitude ), s.Vendor ) );
-                }
+                // update the items with Map Items
+                this.Items = results.Select( i => new MapItem( new Position( i.Latitude, i.Longitude ), i.Vendor ) ).ToList();
 
                 // we want to know after ALL the map items have changed not on each one
                 this.OnItemsUpdated();

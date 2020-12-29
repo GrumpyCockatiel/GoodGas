@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using GoodGas.Models;
 using GoodGas.Services;
@@ -12,18 +13,30 @@ namespace GoodGas.ViewModels
     /// <summary>The view model for the Items List Page</summary>
     public class ItemsViewModel : BaseViewModel
     {
+        #region [ Fields ]
+
+        private List<GasStation> _items;
+
+        #endregion [ Fields ]
+
+        /// <summary>Constructor</summary>
         public ItemsViewModel()
         {
+            // set the page view title
             this.Title = "Gas Stations";
 
-            this.Items = new ObservableCollection<GasStation>();
+            // init the local items collection
+            this.Items = new List<GasStation>();
 
+            // set the Load Items Command handler
             this.LoadItemsCommand = new Command( () =>
             {
                 // refresh the data
                 //async () => await ExecuteLoadItemsCommand()
-                Task<bool> t = this.DataStore.ListGasStations( this.LoadModel );
-            });
+                //Task<bool> t = this.DataStore.ListGasStations( this.LoadModel );
+                Task<IEnumerable<GasStation>> t = this.DataStore.ListGasStations2();
+                t.ContinueWith( ant => { LoadModel( ant.Result.ToList() ); }  );
+            } );
 
             //MessagingCenter.Subscribe<NewItemPage, Item>( this, "AddItem", async ( obj, item ) =>
             // {
@@ -35,15 +48,21 @@ namespace GoodGas.ViewModels
 
         #region [ Properties ]
 
-        /// <summary>The model to bind to</summary>
-        public ObservableCollection<GasStation> Items { get; set; }
+        /// <summary>Data Source from month drop down menu</summary>
+        public List<GasStation> Items
+        {
+            get { return _items; }
+            set { SetProperty( ref _items, value ); }
+        }
 
         /// <summary>Command called to load the local Observable list</summary>
         public Command LoadItemsCommand { get; set; }
 
         #endregion [ Properties ]
 
-        public void LoadModel( ServiceResponse<List<GasStation>> results )
+        /// <summary></summary>
+        /// <param name="results"></param>
+        public void LoadModel( List<GasStation> results )
         {
             if ( IsBusy )
                 return;
@@ -52,18 +71,7 @@ namespace GoodGas.ViewModels
 
             try
             {
-                // check the response is good
-
-                this.Items.Clear();
-
-                results.Data.ResultObject.ForEach( i => this.Items.Add(i) ); 
-
-                //foreach ( GasStation s in results.Data.ResultObject )
-                //{
-                //    // add a new map item
-                //    this.Items.Add( s );
-                //    //this.Items.Add( new MapItem( new Position( 29.7532963, -95.4024021 ), "Place 2", "Another place." ) );
-                //}
+                this.Items = results;
             }
             catch ( Exception ex )
             {
@@ -75,31 +83,5 @@ namespace GoodGas.ViewModels
             }
         }
 
-        /// <summary></summary>
-        /// <returns></returns>
-        //public async Task ExecuteLoadItemsCommand()
-        //{
-        //    IsBusy = true;
-
-        //    try
-        //    {
-        //        Items.Clear();
-
-        //        var items = await this.DataStore.GetItemsAsync( true );
-
-        //        foreach ( var item in items )
-        //        {
-        //            Items.Add( item );
-        //        }
-        //    }
-        //    catch ( Exception ex )
-        //    {
-        //        Debug.WriteLine( ex );
-        //    }
-        //    finally
-        //    {
-        //        IsBusy = false;
-        //    }
-        //}
     }
 }

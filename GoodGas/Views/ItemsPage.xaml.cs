@@ -25,6 +25,7 @@ namespace GoodGas.Views
             this.BindingContext = _viewModel = new ItemsViewModel();
         }
 
+        /// <summary></summary>
         async void OnItemSelected( object sender, EventArgs args )
         {
             var layout = (BindableObject)sender;
@@ -34,11 +35,13 @@ namespace GoodGas.Views
             await Navigation.PushAsync( new ItemDetailPage( new ItemDetailViewModel( item ) ) );
         }
 
+        /// <summary></summary>
         async void AddItem_Clicked( object sender, EventArgs e )
         {
             await Navigation.PushModalAsync( new NavigationPage( new NewItemPage() ) );
         }
 
+        /// <summary></summary>
         protected override void OnAppearing()
         {
             base.OnAppearing();

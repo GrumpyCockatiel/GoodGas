@@ -14,10 +14,7 @@ namespace GoodGas.ViewModels
 		#region [ Fields ]
 
 		/// <summary>The data store itself</summary>
-		/// <remarks>
-        /// Looks for a registered Type of IDataStore-GasStation which was reigstered in App.cs
-        /// Calls the constructor each time a new view is created.
-        /// </remarks>
+		/// <remarks>Looks for a registered Type of IDataStore-GasStation which was reigstered in App.cs</remarks>
 		//protected IDataStore<GasStation> DataStore => DependencyService.Get<IDataStore<GasStation>>();
 		protected IDataStore<GasStation> DataStore => DependencyService.Get<GasService>();
 

@@ -16,6 +16,8 @@ namespace GoodGas.Services
 		//Task<T> GetItemAsync( string id );
 		//Task<IEnumerable<T>> GetItemsAsync( bool forceRefresh = false );
 
-		Task<bool> ListGasStations( APICallback<List<GasStation>> callback );
+		//Task<bool> ListGasStations( APICallback<List<GasStation>> callback );
+
+		Task<IEnumerable<GasStation>> ListGasStations2( );
 	}
 }

@@ -23,38 +23,44 @@ namespace GoodGas.Views
 			this.BindingContext = this._viewModel = new MapsViewModel();
 
 			// set the inital position over DT Houston
-			this.Center = new MapSpan( new Position( 29.7507, -95.362 ), 0.01, 0.01 );
+			//this.Center = new MapSpan( new Position( 29.7507, -95.362 ), 0.01, 0.01 );
 
 			// watch the model list for done changes
-			this._viewModel.ItemsUpdated += DoMapItemsChanged;
+			//this._viewModel.ItemsUpdated += DoMapItemsChanged;
 
-		}
+            this.gasMap.PropertyChanged += DoMapPropertyChanged;
+
+            this.gasMap.MoveToRegion( new MapSpan( new Position( 29.7507, -95.362 ), 0.01, 0.01 ) );
+        }
 
         #region [ Properties ]
 
-                /// <summary>Centers the map view</summary>
-        protected MapSpan Center
-        {
-            set
-            {
-                this.gasMap.MoveToRegion( value );
-            }
-        }
-
         #endregion [ Properties ]
-
 
         #region [ Methods ]
 
-        /// <summary>View model lets us know the maps items have been completely updated</summary>
-        private void DoMapItemsChanged( Object sender )
+        /// <summary>Handler when any property on the map child view changes</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DoMapPropertyChanged( object sender, PropertyChangedEventArgs e )
         {
-            if ( this._viewModel != null && this._viewModel.Items != null && this._viewModel.Items.Count > 0 )
+            // watch the ItemsSource property
+            if ( e.PropertyName == "ItemsSource" )
             {
                 int idx = this._viewModel.Items.Count - 1;
-                this.Center = new MapSpan( this._viewModel.Items[idx].Position, 0.01, 0.01 );
+                this.gasMap.MoveToRegion( new MapSpan( this._viewModel.Items[idx].Position, 0.01, 0.01 ) );
             }
         }
+
+        /// <summary>View model lets us know the maps items have been completely updated</summary>
+        //protected void DoMapItemsChanged( Object sender )
+        //{
+        //    if ( this._viewModel != null && this._viewModel.Items != null && this._viewModel.Items.Count > 0 )
+        //    {
+        //        int idx = this._viewModel.Items.Count - 1;
+        //        //this.Center = new MapSpan( this._viewModel.Items[idx].Position, 0.01, 0.01 );
+        //    }
+        //}
 
         /// <summary>This will update on each item added</summary>
         /// <param name="sender"></param>

@@ -25,6 +25,8 @@ namespace GoodGas
 			InitializeComponent();
 
 			// register the back-end service as a singleton
+			// can register a mock here based on some startup setting
+			//DependencyService.RegisterSingleton<MockDataStore>( new MockDataStore() );
 			DependencyService.RegisterSingleton<GasService>( new GasService(APIBaseURL, FunctionKey) );
 
 			// create the main page
