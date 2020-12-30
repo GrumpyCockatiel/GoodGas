@@ -12,13 +12,13 @@ namespace GoodGas.Views
 	[DesignTimeVisible( false )]
 	public partial class ItemDetailPage : ContentPage
 	{
-		ItemDetailViewModel viewModel;
+		private ItemDetailViewModel _viewModel;
 
 		public ItemDetailPage( ItemDetailViewModel viewModel )
 		{
 			InitializeComponent();
 
-			BindingContext = this.viewModel = viewModel;
+			this.BindingContext = this._viewModel = viewModel;
 		}
 
 		public ItemDetailPage()
@@ -31,8 +31,8 @@ namespace GoodGas.Views
 				Address = "This is an item description."
 			};
 
-			viewModel = new ItemDetailViewModel( item );
-			BindingContext = viewModel;
+			this._viewModel = new ItemDetailViewModel( item );
+			BindingContext = this._viewModel;
 		}
 	}
 }

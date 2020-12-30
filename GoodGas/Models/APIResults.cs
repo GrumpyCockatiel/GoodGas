@@ -5,23 +5,29 @@ using Newtonsoft.Json.Converters;
 
 namespace GoodGas.Models
 {
-	/// <summary>This class is used to encapsulate the result of an api method call.</summary>
+	/// <summary>This class is used to encapsulate the result of an api method call.
+    /// It wraps the business data in the ResultObject property.</summary>
+    /// <remarks>Edit the APIResultType to match result codes to the backend. Be careful to not to reveal any more info that necessary to teh client side.</remarks>
 	public class APIResult<T>
 	{
-		public APIResult( APIResultType code )
-		{
-			this.ResultCode = code;
-			this.ResultObject = default( T );
-		}
+        #region [ Constructors ]
 
-		public APIResult()
-		{
-			this.ResultCode = APIResultType.Unknown;
-			this.ResultObject = default( T );
-		}
+        public APIResult( APIResultType code )
+        {
+            this.ResultCode = code;
+            this.ResultObject = default( T );
+        }
 
-		/// <summary>The error code on error</summary>
-		[JsonProperty( "resultType" )]
+        public APIResult()
+        {
+            this.ResultCode = APIResultType.Unknown;
+            this.ResultObject = default( T );
+        }
+
+        #endregion [ Constructors ]
+
+        /// <summary>The error code on error</summary>
+        [JsonProperty( "resultType" )]
 		[JsonConverter( typeof( StringEnumConverter ) )]
 		public APIResultType ResultCode { get; set; }
 
