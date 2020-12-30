@@ -15,8 +15,7 @@ namespace GoodGas.ViewModels
 
 		/// <summary>The data store itself</summary>
 		/// <remarks>Looks for a registered Type of IDataStore-GasStation which was reigstered in App.cs</remarks>
-		//protected IDataStore<GasStation> DataStore => DependencyService.Get<IDataStore<GasStation>>();
-		protected IDataStore<GasStation> DataStore => DependencyService.Get<GasService>();
+		protected IDataStore<GasStation> DataStore => DependencyService.Get<IDataStore<GasStation>>();
 
 		private bool _isBusy = false;
 

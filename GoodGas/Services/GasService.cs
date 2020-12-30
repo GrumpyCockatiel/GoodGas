@@ -20,16 +20,9 @@ namespace GoodGas.Services
 
         /// <summary>Constructor</summary>
         /// <param name="env"></param>
-        public GasService() : base (App.APIBaseURL, App.FunctionKey)
-        {
-            _ = 1;
-        }
-
-        /// <summary>Constructor</summary>
-        /// <param name="env"></param>
         public GasService(string url, string key) : base( url, key )
         {
-            _ = 2;
+            _ = 0;
         }
 
         #endregion [ Constructor ]

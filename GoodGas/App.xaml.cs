@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using GoodGas.Services;
 using GoodGas.Views;
+using GoodGas.Models;
 
 namespace GoodGas
 {
@@ -26,8 +27,8 @@ namespace GoodGas
 
 			// register the back-end service as a singleton
 			// can register a mock here based on some startup setting
-			//DependencyService.RegisterSingleton<MockDataStore>( new MockDataStore() );
-			DependencyService.RegisterSingleton<GasService>( new GasService(APIBaseURL, FunctionKey) );
+			//DependencyService.RegisterSingleton<IDataStore<GasStation>>( new MockDataStore() );
+			DependencyService.RegisterSingleton<IDataStore<GasStation>>( new GasService(APIBaseURL, FunctionKey) );
 
 			// create the main page
 			MainPage = new MainPage();
