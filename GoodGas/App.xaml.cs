@@ -25,6 +25,9 @@ namespace GoodGas
 		{
 			InitializeComponent();
 
+			// register a logger
+			DependencyService.RegisterSingleton<IDataStore<string>>( new LogRepository() );
+
 			// register the back-end service as a singleton
 			// can register a mock here based on some startup setting
 			//DependencyService.RegisterSingleton<IDataStore<GasStation>>( new MockDataStore() );

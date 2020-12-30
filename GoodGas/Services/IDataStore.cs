@@ -12,7 +12,11 @@ namespace GoodGas.Services
 	{
 		/// <summary>Get a list of all the items</summary>
 		/// <returns>A list of items of type T</returns>
-		Task<IEnumerable<GasStation>> ListAll();
+		Task<IEnumerable<T>> ListAll();
+
+		/// <summary></summary>
+        /// <returns></returns>
+		Task<bool> AddItem( T item );
 
 		/* we're gonna implement this later */
 		//Task<T> GetItem( string id );

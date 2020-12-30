@@ -33,6 +33,13 @@ namespace GoodGas.Services
 
         #region [ IDataStore ]
 
+        /// <summary></summary>
+        /// <returns></returns>
+        public async Task<bool> AddItem( GasStation item )
+        {
+            return await Task.FromResult( false );
+        }
+
         /// <summary>Calls the List Gas Stations API endpoint</summary>
         /// <returns></returns>
         public async Task<IEnumerable<GasStation>> ListAll()

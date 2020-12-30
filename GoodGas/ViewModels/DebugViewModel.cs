@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Newtonsoft.Json;
 using Xamarin.Forms;
@@ -9,20 +12,28 @@ namespace GoodGas.ViewModels
 	/// <summary></summary>
 	public class DebugViewModel : BaseViewModel
 	{
-		private string _data = String.Empty;
+		#region [ Fields ]
+
+		private string _items;
+
+		#endregion [ Fields ]
 
 		public DebugViewModel()
 		{
 			this.Title = "Debug";
 
-			//// subscribe to log messages
-   //         MainModel.Instance.Log += UpdateLog;
+			ClearCommand = new Command( () => { this.DebugInfo = String.Empty; } );
 
-			//ClearCommand = new Command( () => { this.DebugInfo = String.Empty; } );
+			this.DebugInfo = String.Empty;
 
-			//RefreshCommand = new Command( () => {
-			//	// load some data;
-			//} );
+			// set a handler for load items
+			this.LoadItemsCommand = new Command( () =>
+			{
+				// refresh the data
+				//Task<bool> t = this.DataStore.ListGasStations( this.LoadModel );
+				Task<IEnumerable<string>> t = this.Logger.ListAll();
+				t.ContinueWith( ant => { LoadModel( ant.Result.ToList() ); } );
+			} );
 		}
 
 		/// <summary></summary>
@@ -31,18 +42,38 @@ namespace GoodGas.ViewModels
 		/// <summary></summary>
 		public ICommand RefreshCommand { get; }
 
-		/// <summary></summary>
+		/// <summary>Command to load data into the view model</summary>
+		public Command LoadItemsCommand { get; set; }
+
+		/// <summary>Property the Debug view is bound to</summary>
 		public string DebugInfo
 		{
-			get { return _data; }
-			set { SetProperty( ref _data, value ); }
+			get { return _items; }
+			set { SetProperty( ref _items, value ); }
 		}
 
-        /// <summary>Handler when main model is updated</summary>
-		public void UpdateLog(string msg)
-        {
-            this.DebugInfo += String.Format("{0} ({1}){2}", msg, DateTime.Now, Environment.NewLine);
-        }
+		/// <summary></summary>
+		/// <param name="results"></param>
+		public void LoadModel( List<string> results )
+		{
+			if ( IsBusy )
+				return;
+
+			IsBusy = true;
+
+			try
+			{
+				this.DebugInfo = String.Join( Environment.NewLine, results.ToArray() ); ;
+			}
+			catch ( Exception ex )
+			{
+				Debug.WriteLine( ex );
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+		}
 
 	}
 }

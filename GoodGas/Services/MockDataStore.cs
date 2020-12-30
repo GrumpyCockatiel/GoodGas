@@ -28,6 +28,13 @@ namespace GoodGas.Services
         {
             return await Task.FromResult( this.items );
         }
+
+        /// <summary></summary>
+        /// <returns></returns>
+        public async Task<bool> AddItem( GasStation items )
+        {
+            return await Task.FromResult( false );
+        }
     }
 
 }

@@ -49,6 +49,17 @@
 		</NavigationPage>
 
 		<!-- Logs View-->
+		<NavigationPage Title="Debug">
+			<x:Arguments>
+				<views:DebugPage />
+			</x:Arguments>
+			<NavigationPage.Icon>
+				<OnPlatform x:TypeArguments="FileImageSource">
+					<On Platform="iOS" Value="LogTabIcon" />
+					<On Platform="Android" Value="LogTabIcon" />
+				</OnPlatform>
+			</NavigationPage.Icon>
+		</NavigationPage>
 
 	</TabbedPage.Children>
 
