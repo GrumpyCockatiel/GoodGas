@@ -39,6 +39,29 @@ ItemsSource="{Binding Items}"
 ```
 All it's saying is that this instance of the control wants to subscribe to the event for when this property 'Items' changes in the Binding Context. The Binding Context can be any class including itself, but most often a separate ViewModel class. Such binding can be one or two ways.
 
+## IoC and Dependency Service
+
+We always want to build our apps with testing in mind. A client app should be able to run even with the backend service may be down or disconnected from the Internet. You'll notice the template projects starts with a MockDataStore and created using the Xamarin Forms Dependecy Service.
+
+```
+DependencyService.Register<MockDataStore>();
+```
+
+A major issue with any cross-platform environment is being able to hardware or platform specific functions in which no bridge code has yet to be written. For example, getting location from the device GPS. In a native environment, this is trivial. But how it's done in iOS vs Android si completely different. Over time, Xamarain adds more and more bridging code to handle these functions, but it's always behind the latest release. This is where the Dependency Service can help instantiate two difference code bases depending upon the runtime environment.
+
+But we can use it here to load up a different data source based on some config setting or logic.
+
+The Mock Data Store doesn't need a network connection and returns hard coded data good for testing. In order to switch the API connected Data store it's one change:
+
+```
+//DependencyService.RegisterSingleton<IDataStore<GasStation>>( new MockDataStore() );
+DependencyService.RegisterSingleton<IDataStore<GasStation>>( new GasService(APIBaseURL, FunctionKey) );
+```
+
+## Configuration Environments
+
+Coming...
+
 ## Notes
 
 * The function API Key **only** works on a single List function.
