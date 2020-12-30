@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GoodGas.Logging
 {
-	/// <summary>ViewModel logger</summary>
+	/// <summary>List Logger logs to an in memory list of strings</summary>
 	public class ListLogger : ILogger
 	{
 		#region [ Fields ]

@@ -51,7 +51,7 @@ namespace GoodGas.Services
 
             // actually call the API
             var logger = DependencyService.Get<ILogger>();
-            logger.Log( "Call the API" );
+            logger.Log( "Called the API", "API" );
             HttpResponseMessage results = await this.Client.SendAsync( message );
 
             // lets check the HTTP reponse
@@ -63,6 +63,7 @@ namespace GoodGas.Services
             APIResult<List<GasStation>> resp = JsonConvert.DeserializeObject<APIResult<List<GasStation>>>( body );
 
             // now check the API call results
+            logger.Log( "The API returned", "API" );
 
             // and return the data to the caller
             return resp.ResultObject;
