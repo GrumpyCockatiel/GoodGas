@@ -11,10 +11,12 @@ namespace GoodGas.Services
     {
         readonly List<GasStation> items;
 
+        /// <summary>Constructor</summary>
         public MockDataStore()
         {
-            items = new List<GasStation>()
+            this.items = new List<GasStation>()
             {
+                // load some fake data
                 new GasStation { ID = "1", Vendor = "Valero", Address = "926 Westheimer Rd", City="Houston",State="TX", Zip="77006", Latitude=29.7408427, Longitude=-95.3975131 },
                 new GasStation { ID = "2", Vendor = "Chevron", Address = "2602 Richmond Ave", City="Houston", State="TX", Zip="77098", Latitude = 29.7350346, Longitude = -95.4190183 },
             };
@@ -22,9 +24,9 @@ namespace GoodGas.Services
 
         /// <summary></summary>
         /// <returns></returns>
-        public async Task<IEnumerable<GasStation>> ListGasStations()
+        public async Task<IEnumerable<GasStation>> ListAll()
         {
-            return await Task.FromResult( items );
+            return await Task.FromResult( this.items );
         }
     }
 

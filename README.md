@@ -15,7 +15,22 @@ While I've started this example from the template, it's still a work in progress
 
 Enjoy.
 
-## Refreshing Data
+## Getting it Working
+
+* Install the latest version of Visual Studio for Windows or Mac. It should work on either
+* On a Mac you will also want to have the latest version of XCode installed for running the iOS Simulator
+* Clone or download this repo
+* Open the .sln file at the root and Run the project
+
+### iOS or Android
+
+I'm biased, I usually give more attention to the iOS implementation. However, you can run either, though the Android version is behind right now. You will need a simulator/emulator installed or a physical device to load it to.
+
+## Design Decisions
+
+When architecting a new app, there are lots of things we need consider:
+
+### Refreshing Data
 
 How often to refresh app data is one that depends on several factors:
 
@@ -31,7 +46,10 @@ Another approach is simply added a API call that returns the date of the last da
 If the total amount of data is small, then a full feed approach can be used. For large amounts of data, then a partial feed might be needed. Data can be stored locally and compared for deltas.
 
 ## How it Works
-Remeber that XAML is just a UI configuration syntax much like you find in many other UI development environments. It's just XML that tells how to instatiate code. Old school iOS had NIB files which later became .storyboard files (also XML), and so on...
+
+### UI Configuration
+
+Remember that XAML is just a UI configuration syntax much like you find in many other UI development environments. It's just XML that tells how to instatiate code. Old school iOS had NIB files which later became .storyboard files (also XML), and so on...
 
 When you see something like
 ```
@@ -39,7 +57,44 @@ ItemsSource="{Binding Items}"
 ```
 All it's saying is that this instance of the control wants to subscribe to the event for when this property 'Items' changes in the Binding Context. The Binding Context can be any class including itself, but most often a separate ViewModel class. Such binding can be one or two ways.
 
-## IoC and Dependency Service
+## Data Store
+
+Most every app has some data it needs to at least retrieve and display, as well possibly store locally and possibly update back to the source. We never want our client side binary package to include code or credentials to connect directly to a physical data source. Always assume a local binary can be extracted, de-compiled and perused for useful credentials. BASE64 encoding a hardcoded password isn't going to stop anyone.
+
+In the real world developers working on the backend may be working in parallel with those doing the client. All they need to agree upon is an interface definition like this simple example:
+
+```
+string Login(string id, string pw);
+bool Logout(string token);
+MyObject[] ListMyObjects(string token);
+```
+
+To kick off this app the Microsoft has defined an interface called IDataStore. They've included more CRUD operations than we will use at this time. We'll start with the most obvious:
+
+```
+public interface IDataStore<T>
+{
+	/// <summary>Get a list of all the items</summary>
+	/// <returns>A list of items of type T</returns>
+	Task<IEnumerable<GasStation>> ListAll();
+}
+```
+
+The generic type T is the business or domain entity that correlates to this data store. The issue with this design is that it assumes **all** your data stores will have the same operations. While getting and listing are very common, inserting and updating my be less so and deleting very rare. Of course, you can still implement these is a concrete class to do nothing - but there is such a thing as too generic. It's OK to create iterface definitions for different entities.
+
+For starters we will have the concrete MockDataStore and GasService.
+
+```
+public class MockDataStore : IDataStore<GasStation>
+```
+
+The later will actually connect to the backend API:
+```
+public class GasService : RESTServiceBase, IDataStore<GasStation>
+```
+using a REST Service endpoint. From that point on, the client has no idea how the backend is implemented. For it knows the data is loaded from a CSV file, or comes from 3 different sources. It should not matter and a physical change the data source shouldn't break the app.
+
+### IoC and Dependency Service
 
 We always want to build our apps with testing in mind. A client app should be able to run even with the backend service may be down or disconnected from the Internet. You'll notice the template projects starts with a MockDataStore and created using the Xamarin Forms Dependecy Service.
 
@@ -58,7 +113,7 @@ The Mock Data Store doesn't need a network connection and returns hard coded dat
 DependencyService.RegisterSingleton<IDataStore<GasStation>>( new GasService(APIBaseURL, FunctionKey) );
 ```
 
-## Configuration Environments
+### Configuration Environments
 
 Coming...
 

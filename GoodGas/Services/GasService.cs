@@ -35,7 +35,7 @@ namespace GoodGas.Services
 
         /// <summary>Calls the List Gas Stations API endpoint</summary>
         /// <returns></returns>
-        public async Task<IEnumerable<GasStation>> ListGasStations()
+        public async Task<IEnumerable<GasStation>> ListAll()
         {
             // define the request
             HttpRequestMessage message = this.GetRequest( "ListGasStations", false, false );

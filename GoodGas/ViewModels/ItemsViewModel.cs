@@ -34,7 +34,7 @@ namespace GoodGas.ViewModels
                 // refresh the data
                 //async () => await ExecuteLoadItemsCommand()
                 //Task<bool> t = this.DataStore.ListGasStations( this.LoadModel );
-                Task<IEnumerable<GasStation>> t = this.DataStore.ListGasStations();
+                Task<IEnumerable<GasStation>> t = this.DataStore.ListAll();
                 t.ContinueWith( ant => { LoadModel( ant.Result.ToList() ); }  );
             } );
 

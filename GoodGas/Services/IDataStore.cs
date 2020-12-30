@@ -6,18 +6,21 @@ using GoodGas.Models;
 namespace GoodGas.Services
 {
 	/// <summary>Interface that defines a Data Store</summary>
-    /// <typeparam name="T">Typical a BO stored in the data store.</typeparam>
-    /// <remarks>We're going to modify this interface for our own backend</remarks>
+    /// <typeparam name="T">The business or domain object</typeparam>
+    /// <remarks>Sometimes called IRepository which I prefer</remarks>
 	public interface IDataStore<T>
 	{
-		/// <summary>Get the list of stations</summary>
-		/// <returns></returns>
-		Task<IEnumerable<GasStation>> ListGasStations();
+		/// <summary>Get a list of all the items</summary>
+		/// <returns>A list of items of type T</returns>
+		Task<IEnumerable<GasStation>> ListAll();
 
+		/* we're gonna implement this later */
+		//Task<T> GetItem( string id );
+
+		/* nothing below here will be used at this time */
 		//Task<bool> AddItemAsync( T item );
 		//Task<bool> UpdateItemAsync( T item );
 		//Task<bool> DeleteItemAsync( string id );
-		//Task<T> GetItemAsync( string id );
 		//Task<IEnumerable<T>> GetItemsAsync( bool forceRefresh = false );
 	}
 }
