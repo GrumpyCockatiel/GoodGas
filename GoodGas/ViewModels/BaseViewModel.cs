@@ -18,7 +18,7 @@ namespace GoodGas.ViewModels
 		protected IDataStore<GasStation> DataStore => DependencyService.Get<IDataStore<GasStation>>();
 
 		/// <summary>The log repository</summary>
-		protected IDataStore<string> Logger => DependencyService.Get<IDataStore<string>>();
+		//protected IDataStore<string> Logger => DependencyService.Get<IDataStore<string>>();
 
 		private bool _isBusy = false;
 
@@ -26,36 +26,40 @@ namespace GoodGas.ViewModels
 
         #endregion [ Fields ]
 
+        #region [ Properties ]
+
         /// <summary>Is the page busy - then show loading icon</summary>
         public bool IsBusy
-		{
-			get { return _isBusy; }
-			set { SetProperty( ref _isBusy, value ); }
-		}
+        {
+            get { return _isBusy; }
+            set { SetProperty( ref _isBusy, value ); }
+        }
 
-		/// <summary>View title value</summary>
-		public string Title
-		{
-			get { return _title; }
-			set { SetProperty( ref _title, value ); }
-		}
+        /// <summary>View title value</summary>
+        public string Title
+        {
+            get { return _title; }
+            set { SetProperty( ref _title, value ); }
+        }
 
-		/// <summary>Setting a property causes it to invoke a change event</summary>
-		protected bool SetProperty<T>( ref T backingStore, T value, [CallerMemberName]string propertyName = "", Action onChanged = null )
-		{
-			if ( EqualityComparer<T>.Default.Equals( backingStore, value ) )
-				return false;
+        #endregion [ Properties ]
 
-			backingStore = value;
-			onChanged?.Invoke();
-			OnPropertyChanged( propertyName );
-			return true;
-		}
+        /// <summary>Setting a property causes it to invoke a change event</summary>
+        protected bool SetProperty<T>( ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null )
+        {
+            if ( EqualityComparer<T>.Default.Equals( backingStore, value ) )
+                return false;
 
-		#region INotifyPropertyChanged
+            backingStore = value;
+            onChanged?.Invoke();
+            OnPropertyChanged( propertyName );
+            return true;
+        }
 
-		/// <summary></summary>
-		public event PropertyChangedEventHandler PropertyChanged;
+        #region [ INotifyPropertyChanged ]
+
+        /// <summary></summary>
+        public event PropertyChangedEventHandler PropertyChanged;
 
 		/// <summary>Any property invokes a change event</summary>
 		protected void OnPropertyChanged( [CallerMemberName] string propertyName = "" )
@@ -68,6 +72,6 @@ namespace GoodGas.ViewModels
 			changed.Invoke( this, new PropertyChangedEventArgs( propertyName ) );
 		}
 
-		#endregion
-	}
+        #endregion [ INotifyPropertyChanged ]
+    }
 }

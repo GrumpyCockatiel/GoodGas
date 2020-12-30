@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using GoodGas.Models;
 using System.Net;
+using Xamarin.Forms;
+using GoodGas.Logging;
 
 namespace GoodGas.Services
 {
@@ -48,9 +50,13 @@ namespace GoodGas.Services
             HttpRequestMessage message = this.GetRequest( "ListGasStations", false, false );
 
             // actually call the API
+            var logger = DependencyService.Get<ILogger>();
+            logger.Log( "Call the API" );
             HttpResponseMessage results = await this.Client.SendAsync( message );
-            HttpStatusCode code = results.StatusCode;
+
             // lets check the HTTP reponse
+            HttpStatusCode code = results.StatusCode;
+
             string body = await results.Content.ReadAsStringAsync();
 
             // deserialize the response

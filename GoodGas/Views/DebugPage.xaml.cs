@@ -19,5 +19,14 @@ namespace GoodGas.Views
 
 			this.BindingContext = this._viewModel = new DebugViewModel();
 		}
+
+		/// <summary>When the view appears</summary>
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
+
+			this._viewModel.LoadItemsCommand.Execute( null );
+		}
+		
 	}
 }

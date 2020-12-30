@@ -26,26 +26,27 @@ namespace GoodGas.ViewModels
         /// <summary>Constructor</summary>
         public MapsViewModel()
 		{
+            // set the title
 			this.Title = "Map";
 
+            // init the items
 			this.Items = new List<MapItem>();
 
 			// set a handler for load items
 			this.LoadItemsCommand = new Command( () =>
 			{
                 // refresh the data
-                //Task<bool> t = this.DataStore.ListGasStations( this.LoadModel );
                 Task<IEnumerable<GasStation>> t = this.DataStore.ListAll();
                 t.ContinueWith( ant => { LoadModel( ant.Result.ToList() ); } );
             } );
 
-			//MessagingCenter.Subscribe<NewItemPage, MapItem>( this, "AddItem", async ( obj, item ) =>
-			// {
-			//	 var newItem = item as MapItem;
-			//	 Items.Add( newItem );
-			//	 await DataStore.AddItemAsync( newItem );
-			// } );
-		}
+            //MessagingCenter.Subscribe<NewItemPage, MapItem>( this, "AddItem", async ( obj, item ) =>
+            // {
+            //     var newItem = item as MapItem;
+            //     Items.Add( newItem );
+            //     await DataStore.AddItemAsync( newItem );
+            // } );
+        }
 
         /// <summary>Data Source </summary>
         public List<MapItem> Items

@@ -4,6 +4,7 @@ using Xamarin.Forms.Xaml;
 using GoodGas.Services;
 using GoodGas.Views;
 using GoodGas.Models;
+using GoodGas.Logging;
 
 namespace GoodGas
 {
@@ -26,7 +27,7 @@ namespace GoodGas
 			InitializeComponent();
 
 			// register a logger
-			DependencyService.RegisterSingleton<IDataStore<string>>( new LogRepository() );
+			DependencyService.RegisterSingleton<ILogger>( new ListLogger("App", LogLevel.All) );
 
 			// register the back-end service as a singleton
 			// can register a mock here based on some startup setting
