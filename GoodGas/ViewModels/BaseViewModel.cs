@@ -17,9 +17,6 @@ namespace GoodGas.ViewModels
 		/// <remarks>Looks for a registered Type of IDataStore-GasStation which was reigstered in App.cs</remarks>
 		protected IDataStore<GasStation> DataStore => DependencyService.Get<IDataStore<GasStation>>();
 
-		/// <summary>The log repository</summary>
-		//protected IDataStore<string> Logger => DependencyService.Get<IDataStore<string>>();
-
 		private bool _isBusy = false;
 
         private string _title = string.Empty;
@@ -58,7 +55,7 @@ namespace GoodGas.ViewModels
 
         #region [ INotifyPropertyChanged ]
 
-        /// <summary></summary>
+        /// <summary>This is what a Binding Context is looking for to subscribe to</summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
 		/// <summary>Any property invokes a change event</summary>

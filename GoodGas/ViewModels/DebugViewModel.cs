@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace GoodGas.ViewModels
 {
-	/// <summary></summary>
+	/// <summary>View Model for the Debugging Log Page</summary>
 	public class DebugViewModel : INotifyPropertyChanged
 	{
 		#region [ Fields ]
@@ -45,10 +45,10 @@ namespace GoodGas.ViewModels
 
 		#region [ Properties ]
 
-		/// <summary></summary>
+		/// <summary>Clears out the logs</summary>
 		public ICommand ClearCommand { get; }
 
-		/// <summary></summary>
+		/// <summary>Explicit refresh doesnt do anything right now</summary>
 		public ICommand RefreshCommand { get; }
 
 		/// <summary>Command to load data into the view model</summary>
@@ -77,32 +77,39 @@ namespace GoodGas.ViewModels
 
 		#endregion [ Properties ]
 
-		/// <summary>Setting a property causes it to invoke a change event</summary>
+		#region [ INotifyPropertyChanged ]
+
+		/// <summary>Property change event</summary>
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		/// <summary>Common code when setting a property value</summary>
 		protected bool SetProperty<T>( ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null )
 		{
+			// are the old and new values the same
 			if ( EqualityComparer<T>.Default.Equals( backingStore, value ) )
 				return false;
 
+			// update the value
 			backingStore = value;
+
+			// some callback after the update occurs
 			onChanged?.Invoke();
+
+			// let everyone know
 			this.OnPropertyChanged( propertyName );
+
+			// all done
 			return true;
 		}
 
-		#region [ INotifyPropertyChanged ]
-
-		/// <summary></summary>
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		/// <summary>Any property invokes a change event</summary>
+		/// <summary>To call listeners to a property</summary>
 		protected void OnPropertyChanged( [CallerMemberName] string propertyName = "" )
 		{
-			var changed = PropertyChanged;
-
-			if ( changed == null )
+			if ( this.PropertyChanged == null || String.IsNullOrWhiteSpace(propertyName) )
 				return;
 
-			changed.Invoke( this, new PropertyChangedEventArgs( propertyName ) );
+			// invoke with the property changing
+			this.PropertyChanged.Invoke( this, new PropertyChangedEventArgs( propertyName ) );
 		}
 
 		#endregion [ INotifyPropertyChanged ]

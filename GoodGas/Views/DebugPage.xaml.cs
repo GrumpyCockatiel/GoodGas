@@ -20,7 +20,7 @@ namespace GoodGas.Views
 			this.BindingContext = this._viewModel = new DebugViewModel();
 		}
 
-		/// <summary>When the view appears</summary>
+		/// <summary>Every time the page comes into view</summary>
 		protected override void OnAppearing()
 		{
 			base.OnAppearing();

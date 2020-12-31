@@ -49,7 +49,7 @@ namespace GoodGas.Services
             // define the request
             HttpRequestMessage message = this.GetRequest( "ListGasStations", false, false );
 
-            // actually call the API
+            // actually call the API - we want to make it easier to call the logger
             var logger = DependencyService.Get<ILogger>();
             logger.Log( "Called the API", "API" );
             HttpResponseMessage results = await this.Client.SendAsync( message );
