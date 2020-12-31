@@ -39,13 +39,6 @@ namespace GoodGas.ViewModels
                 Task<IEnumerable<GasStation>> t = this.DataStore.ListAll();
                 t.ContinueWith( ant => { LoadModel( ant.Result.ToList() ); } );
             } );
-
-            //MessagingCenter.Subscribe<NewItemPage, MapItem>( this, "AddItem", async ( obj, item ) =>
-            // {
-            //     var newItem = item as MapItem;
-            //     Items.Add( newItem );
-            //     await DataStore.AddItemAsync( newItem );
-            // } );
         }
 
         /// <summary>Data Source </summary>

@@ -45,6 +45,12 @@ Another approach is simply added a API call that returns the date of the last da
 
 If the total amount of data is small, then a full feed approach can be used. For large amounts of data, then a partial feed might be needed. Data can be stored locally and compared for deltas.
 
+### Design Patterns
+
+UI client apps can have a lot of nested hierarchy between parent and child views/controls. This can get tedious especially since most views do not get created until they are first used and some things get disposed to save on memory like table cells that pass out of view.
+
+This can make responding to events from some deeply nested child control on one tab by some view "far away" a bit of a pain. Xamarin includes a MessagingCenter class to implement the **publish-subscribe pattern**. Sadly, it sucks. Don't use it. The listener has to know data type of the sender which just isn't realistic. You can find a 3rd party lib to better implement this but we'll make our own.
+
 ## How it Works
 
 ### UI Configuration

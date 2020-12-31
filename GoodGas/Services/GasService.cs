@@ -24,7 +24,6 @@ namespace GoodGas.Services
         /// <param name="env"></param>
         public GasService(string url, string key) : base( url, key )
         {
-            _ = 0;
         }
 
         #endregion [ Constructor ]
@@ -35,8 +34,8 @@ namespace GoodGas.Services
 
         #region [ IDataStore ]
 
-        /// <summary></summary>
-        /// <returns></returns>
+        /// <summary>Later maybe to add an items to the user's own local data but right now does nothing</summary>
+        /// <returns>Always false for now to satisify the interface</returns>
         public async Task<bool> AddItem( GasStation item )
         {
             return await Task.FromResult( false );
@@ -49,9 +48,10 @@ namespace GoodGas.Services
             // define the request
             HttpRequestMessage message = this.GetRequest( "ListGasStations", false, false );
 
-            // actually call the API - we want to make it easier to call the logger
-            var logger = DependencyService.Get<ILogger>();
-            logger.Log( "Called the API", "API" );
+            // log something but lets make this easier
+            DependencyService.Get<ILogger>().Log( "Called the API", "API" );
+
+            // actually call the API
             HttpResponseMessage results = await this.Client.SendAsync( message );
 
             // lets check the HTTP reponse
@@ -63,14 +63,14 @@ namespace GoodGas.Services
             APIResult<List<GasStation>> resp = JsonConvert.DeserializeObject<APIResult<List<GasStation>>>( body );
 
             // now check the API call results
-            logger.Log( "The API returned", "API" );
+            DependencyService.Get<ILogger>().Log( "The API returned", "API" );
 
             // and return the data to the caller
             return resp.ResultObject;
         }
 
         /// <summary>Get the gas stations list as an async call</summary>
-        /// <returns></returns>
+        /// <remarks>This is a callback version</remarks>
         //public async Task<bool> ListGasStations( APICallback<List<GasStation>> callback )
         //{
         //    // define the request

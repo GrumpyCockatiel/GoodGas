@@ -44,12 +44,20 @@ namespace GoodGas.ViewModels
         /// <summary>Setting a property causes it to invoke a change event</summary>
         protected bool SetProperty<T>( ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null )
         {
+            // are the old and new values the same
             if ( EqualityComparer<T>.Default.Equals( backingStore, value ) )
                 return false;
 
+            // update the value
             backingStore = value;
+
+            // some callback after the update occurs
             onChanged?.Invoke();
-            OnPropertyChanged( propertyName );
+
+            // let everyone know
+            this.OnPropertyChanged( propertyName );
+
+            // all done
             return true;
         }
 
@@ -58,16 +66,15 @@ namespace GoodGas.ViewModels
         /// <summary>This is what a Binding Context is looking for to subscribe to</summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
-		/// <summary>Any property invokes a change event</summary>
-		protected void OnPropertyChanged( [CallerMemberName] string propertyName = "" )
-		{
-			var changed = PropertyChanged;
+        /// <summary>To call listeners to a property</summary>
+        protected void OnPropertyChanged( [CallerMemberName] string propertyName = "" )
+        {
+            if ( this.PropertyChanged == null || String.IsNullOrWhiteSpace( propertyName ) )
+                return;
 
-			if ( changed == null )
-				return;
-
-			changed.Invoke( this, new PropertyChangedEventArgs( propertyName ) );
-		}
+            // notify anyone listening for the specified property to change
+            this.PropertyChanged.Invoke( this, new PropertyChangedEventArgs( propertyName ) );
+        }
 
         #endregion [ INotifyPropertyChanged ]
     }

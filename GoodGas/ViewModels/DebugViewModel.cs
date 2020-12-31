@@ -108,7 +108,7 @@ namespace GoodGas.ViewModels
 			if ( this.PropertyChanged == null || String.IsNullOrWhiteSpace(propertyName) )
 				return;
 
-			// invoke with the property changing
+			// notify anyone listening for the specified property to change
 			this.PropertyChanged.Invoke( this, new PropertyChangedEventArgs( propertyName ) );
 		}
 

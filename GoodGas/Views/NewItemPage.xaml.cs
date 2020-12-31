@@ -28,9 +28,14 @@ namespace GoodGas.Views
 			BindingContext = this;
 		}
 
+		/// <summary></summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 		async void Save_Clicked( object sender, EventArgs e )
 		{
+			// Dont use this. It's lame.
 			MessagingCenter.Send( this, "AddItem", Item );
+
 			await Navigation.PopModalAsync();
 		}
 
