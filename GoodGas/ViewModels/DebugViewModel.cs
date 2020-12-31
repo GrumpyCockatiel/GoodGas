@@ -17,13 +17,17 @@ namespace GoodGas.ViewModels
 	{
 		#region [ Fields ]
 
+		/// <summary></summary>
 		private string _items;
 
+		/// <summary></summary>
 		private bool _isBusy = false;
 
+		/// <summary></summary>
 		private string _title = string.Empty;
 
-		protected ListLogger Logger => DependencyService.Get<ILogger>() as ListLogger;
+		/// <summary></summary>
+		protected ILogRepository Logger => DependencyService.Get<ILogRepository>();
 
 		#endregion [ Fields ]
 
@@ -39,7 +43,7 @@ namespace GoodGas.ViewModels
 			this.LoadItemsCommand = new Command( () =>
 			{
 				// refresh the data
-				this.DebugInfo = String.Join( Environment.NewLine, this.Logger.Logs.ToArray() );
+				this.DebugInfo = String.Join( Environment.NewLine, this.Logger.List.Select( l => $"{l.Timestamp}|{l.Message}" ) );
 			} );
 		}
 

@@ -26,11 +26,13 @@ namespace GoodGas
 		{
 			InitializeComponent();
 
-			// register a logger
-			DependencyService.RegisterSingleton<ILogger>( new ListLogger("iOS", LogLevel.All) );
+			// register a singleton logger but as 2 different types
+			ListLogger logger = new ListLogger( "iOS", LogLevel.All );
+			DependencyService.RegisterSingleton<ILogRepository>( logger );
+			DependencyService.RegisterSingleton<ILogger>( logger );
 
 			// register the back-end service as a singleton
-			// can register a mock here based on some startup setting
+			// we can register a mock here based on some startup setting
 			//DependencyService.RegisterSingleton<IDataStore<GasStation>>( new MockDataStore() );
 			DependencyService.RegisterSingleton<IDataStore<GasStation>>( new GasService(APIBaseURL, FunctionKey) );
 

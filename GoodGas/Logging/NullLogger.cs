@@ -43,6 +43,11 @@ namespace GoodGas.Logging
 			;
 		}
 
+		public void Log( LogRecord message )
+		{
+			;
+		}
+
 		public void Log( Exception exception )
 		{
 			;

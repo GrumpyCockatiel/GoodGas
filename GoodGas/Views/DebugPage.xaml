@@ -4,27 +4,18 @@
              x:Class="GoodGas.Views.DebugPage"
              Padding="20,40,20,10" Title="{Binding Title}">
 
-    <ContentPage.Resources>
-        <ResourceDictionary>
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
     <Grid Margin="10,0,10,10">
         <Grid.RowDefinitions>
-            <!--<RowDefinition Height="Auto" />-->
             <RowDefinition Height="*" />
-			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <ScrollView Grid.Row="0">
             <StackLayout Orientation="Vertical" Spacing="10" VerticalOptions="FillAndExpand">
-                <Editor MaxLength="9000" IsReadOnly="true" HeightRequest="2000" BackgroundColor="White"
-                        TextColor="#000000" Text="{Binding DebugInfo}">
+                <Editor MaxLength="9000" IsReadOnly="true" HeightRequest="2000" Text="{Binding DebugInfo}">
                 </Editor>
             </StackLayout>
         </ScrollView>
-		<Button Grid.Row="1" Text="Clear Logs" Command="{Binding ClearCommand}" TextColor="White" />
-		<Button Grid.Row="2" Text="Force Refresh" Command="{Binding RefreshCommand}" TextColor="White" />
+		<Button Grid.Row="1" Text="Clear Logs" Command="{Binding ClearCommand}" />
     </Grid>
 
 </ContentPage>

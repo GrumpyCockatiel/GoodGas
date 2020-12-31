@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
 
 namespace GoodGas.Logging
 {
 	/// <summary>List Logger logs to an in memory list of strings</summary>
-	public class ListLogger : ILogger
+	public class ListLogger : ILogger, ILogRepository
 	{
 		#region [ Fields ]
 
 		public static readonly string ErrorCategory = "Exception";
 
+		/// <summary></summary>
 		private LogLevel _level = LogLevel.Off;
 
+		/// <summary></summary>
 		private string _src = null;
 
-		private readonly List<string> _logs;
+		/// <summary></summary>
+		private readonly List<LogRecord> _logs;
 
 		#endregion [ Fields ]
 
@@ -33,16 +34,27 @@ namespace GoodGas.Logging
 		/// <param name="baseLevel">Minimum level to log.</param>
 		public ListLogger( string source, LogLevel baseLevel )
 		{
-			this._logs = new List<string>();
+			this._logs = new List<LogRecord>();
 			this.Level = baseLevel;
 			this.Source = source;
 		}
 
 		#endregion [ Constructors ]
 
+		//public event LogHandler LogIt;
+
+		///// <summary>Call the update event</summary>
+		//public void DoLog( string msg )
+		//{
+		//	if ( this.LogIt == null )
+		//		return;
+
+		//	this.LogIt( this, msg );
+		//}
+
 		#region [ Properties ]
 
-		public List<string> Logs
+		public List<LogRecord> List
         {
 			get => this._logs;
         }
@@ -86,6 +98,13 @@ namespace GoodGas.Logging
 
 		/// <summary></summary>
 		/// <param name="message"></param>
+		public void Log( LogRecord message )
+		{
+			this.InsertLog( this.Source, message.Level, message.Category, message.Message, message.Args );
+		}
+
+		/// <summary></summary>
+		/// <param name="message"></param>
 		/// <param name="level"></param>
 		public void Log( string message, string category, LogLevel level = LogLevel.Info )
 		{
@@ -124,29 +143,23 @@ namespace GoodGas.Logging
 		/// <returns></returns>
 		protected int InsertLog( string logger, LogLevel lvl, string category, string msg, params object[] args )
 		{
-			StringBuilder sb = new StringBuilder( DateTime.UtcNow.ToString( "s" ) );
-			sb.Append( "|" );
-
 			if ( lvl < this.Level )
 				return 0;
 
-			// append level
-			sb.AppendFormat( "{0}|", lvl );
-
 			// append category
-			if ( String.IsNullOrWhiteSpace( category ) )
-				sb.Append( "<none>|" );
-			else
-				sb.AppendFormat( "{0}|", category );
+			category = String.IsNullOrWhiteSpace( category ) ? String.Empty : category.Trim();
 
-			if ( !String.IsNullOrWhiteSpace( msg ) )
-				sb.AppendFormat( "{0}", msg.Trim() );
+			// message
+			msg = String.IsNullOrWhiteSpace( msg ) ? String.Empty : msg.Trim();
 
-			// convert the args dictionary to a string and add to the end
-			if ( args != null && args.Length > 0 )
-				sb.AppendFormat( "|args={0}", String.Join( ";", args ) );
-
-			this._logs.Add( sb.ToString() );
+			this._logs.Add( new LogRecord {
+				Message = msg,
+				Level = lvl,
+				Category = category,
+				Source = logger,
+				Timestamp = DateTime.UtcNow,
+				Args = args
+			});
 
 			return 1;
 		}

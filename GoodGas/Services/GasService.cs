@@ -32,6 +32,12 @@ namespace GoodGas.Services
 
         #endregion [ Properties ]
 
+        /// <summary></summary>
+        protected ILogger Logger
+        {
+            get => DependencyService.Get<ILogger>();
+        }
+
         #region [ IDataStore ]
 
         /// <summary>Later maybe to add an items to the user's own local data but right now does nothing</summary>
@@ -49,7 +55,7 @@ namespace GoodGas.Services
             HttpRequestMessage message = this.GetRequest( "ListGasStations", false, false );
 
             // log something but lets make this easier
-            DependencyService.Get<ILogger>().Log( "Called the API", "API" );
+            this.Logger.Log( "Called the API", "API" );
 
             // actually call the API
             HttpResponseMessage results = await this.Client.SendAsync( message );
@@ -63,7 +69,7 @@ namespace GoodGas.Services
             APIResult<List<GasStation>> resp = JsonConvert.DeserializeObject<APIResult<List<GasStation>>>( body );
 
             // now check the API call results
-            DependencyService.Get<ILogger>().Log( "The API returned", "API" );
+            this.Logger.Log( "The API returned", "API" );
 
             // and return the data to the caller
             return resp.ResultObject;
