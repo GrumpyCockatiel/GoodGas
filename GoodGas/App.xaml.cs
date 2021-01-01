@@ -34,7 +34,9 @@ namespace GoodGas
 			// register the back-end service as a singleton
 			// we can register a mock here based on some startup setting
 			//DependencyService.RegisterSingleton<IDataStore<GasStation>>( new MockDataStore() );
-			DependencyService.RegisterSingleton<IDataStore<GasStation>>( new GasService(APIBaseURL, FunctionKey) );
+			GasService gs = new GasService( APIBaseURL, FunctionKey );
+			gs.Logger = logger;
+			DependencyService.RegisterSingleton<IDataStore<GasStation>>( gs );
 
 			// create the main page
 			MainPage = new MainPage();

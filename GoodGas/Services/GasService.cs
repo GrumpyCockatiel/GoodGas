@@ -16,13 +16,16 @@ namespace GoodGas.Services
     {
         #region [ Fields ]
 
+        // the logger
+        private ILogger _logger = new NullLogger();
+
         #endregion [ Fields ]
 
         #region [ Constructor ]
 
         /// <summary>Constructor</summary>
         /// <param name="env"></param>
-        public GasService(string url, string key) : base( url, key )
+        public GasService( string url, string key ) : base( url, key )
         {
         }
 
@@ -30,13 +33,16 @@ namespace GoodGas.Services
 
         #region [ Properties ]
 
-        #endregion [ Properties ]
-
-        /// <summary></summary>
-        protected ILogger Logger
+        /// <summary>Gets or set the logger</summary>
+        public ILogger Logger
         {
-            get => DependencyService.Get<ILogger>();
+            //get => DependencyService.Get<ILogger>();
+            get => this._logger ?? new NullLogger();
+
+            set => this._logger = value;
         }
+
+        #endregion [ Properties ]
 
         #region [ IDataStore ]
 
@@ -51,11 +57,11 @@ namespace GoodGas.Services
         /// <returns></returns>
         public async Task<IEnumerable<GasStation>> ListAll()
         {
-            // define the request
+            // roll the request
             HttpRequestMessage message = this.GetRequest( "ListGasStations", false, false );
 
             // log something but lets make this easier
-            this.Logger.Log( "Called the API", "API" );
+            this.Logger.Log( "Called the ListAll API method.", "API" );
 
             // actually call the API
             HttpResponseMessage results = await this.Client.SendAsync( message );
@@ -63,20 +69,22 @@ namespace GoodGas.Services
             // lets check the HTTP reponse
             HttpStatusCode code = results.StatusCode;
 
-            string body = await results.Content.ReadAsStringAsync();
-
             // deserialize the response
+            string body = await results.Content.ReadAsStringAsync();
             APIResult<List<GasStation>> resp = JsonConvert.DeserializeObject<APIResult<List<GasStation>>>( body );
 
-            // now check the API call results
-            this.Logger.Log( "The API returned", "API" );
-
             // and return the data to the caller
-            return resp.ResultObject;
+            if ( resp.IsSuccess && resp.ResultObject != null )
+            {
+                this.Logger.Log( $"ListAll returned {resp.ResultObject.Count} stations.", "API" );
+                return resp.ResultObject;
+            }
+
+            return new List<GasStation>();
         }
 
         /// <summary>Get the gas stations list as an async call</summary>
-        /// <remarks>This is a callback version</remarks>
+        /// <remarks>This is a callback version for comparison</remarks>
         //public async Task<bool> ListGasStations( APICallback<List<GasStation>> callback )
         //{
         //    // define the request
