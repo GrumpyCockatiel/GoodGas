@@ -53,6 +53,8 @@ This can make responding to events from some deeply nested child control on one 
 
 ## How it Works
 
+![Basic Architecture](./readme/Architecture.png)
+
 ### UI Configuration
 
 Remember that XAML is just a UI configuration syntax much like you find in many other UI development environments. It's just XML that tells how to instatiate code. Old school iOS had NIB files which later became .storyboard files (also XML), and so on...
