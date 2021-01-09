@@ -17,6 +17,9 @@ Enjoy.
 
 ## Getting it Working
 
+### Why Xamarin is better on a Mac
+The irony here is that developing x-platform apps using .NET Core on a Mac is actually a better experience than Windows. Visual Studio for Mac is good enough and not bloated like the Windows version, you can install XCode on the Mac as well for a better simulator experience, as well as editing storyboards directly in XCode, and the Android emulator works just as it does on the Mac as it does on Windows.
+
 * Install the latest version of Visual Studio for Windows or Mac. It should work on either
 * On a Mac you will also want to have the latest version of XCode installed for running the iOS Simulator
 * Clone or download this repo
